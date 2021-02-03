@@ -1,15 +1,19 @@
 Package: metacsv
-Title: What the Package Does (One Line, Title Case)
+Title: Read and Write CSV Files With Metadata
 Version: 0.0.0.9000
 Authors@R: 
-    person(given = "First",
-           family = "Last",
+    person(given = "Paul",
+           family = "McElhany",
            role = c("aut", "cre"),
-           email = "first.last@example.com",
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
-License: `use_mit_license()`, `use_gpl3_license()` or friends to
-    pick a license
+           email = "paul.mcelhany@noaa.gov",
+           comment = c(ORCID = "0000-0002-9826-755X"))
+Description: This package provides functions to read and write csv data files 
+    that have metadata embedded at the top of the data file or in a seperate, 
+    associated csv file that includes the metadata. A number of standard formats
+    for metadata fields are available, but the package is fexible to allow for
+    user defined formats. All metadata is in human readable and editable csv
+    format.
+License: CC0
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
