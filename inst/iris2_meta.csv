@@ -1,0 +1,16 @@
+*metacsv_format_file*,,,,,
+file_name,iris.csv,,,,
+project_name,metacsv example,,,,
+creation_date,2021.02.04,,,,
+description,example embedded metadata file,,,,
+created_by,Paul McElhany,,,,
+data_owner,Everyone,,,,
+version,1,,,,
+***,,,,,
+var_name,units,description,format,min,max
+Sepal.Length,mm,sepal length,number,4.3,7.9
+Sepal.Width,mm,sepal width,number,2,4.4
+Petal.Length,mm,petal length,number,1,6.9
+Petal.Width,mm,petal width,number,0.1,2.5
+Species,NA,species name,character - lower case,NA,NA
+###,,,,,

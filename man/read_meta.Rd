@@ -21,5 +21,6 @@ List with three data frames
 Read csv file with metadata
 }
 \examples{
-
+iris_withMeta_raw <- read.csv(system.file("iris_withMeta.csv", package = "metacsv" ))
+iris_withMeta_parsed <- read_meta(system.file("iris_withMeta.csv", package = "metacsv" ))
 }
