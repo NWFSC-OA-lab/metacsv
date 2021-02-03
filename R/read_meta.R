@@ -62,7 +62,6 @@ read_meta <- function(file){
       dData <- read.csv(file, stringsAsFactors=FALSE, header = TRUE)
     }
   }
-
   dList <- list(generalMetadata = dGeneralMeta,
                 variableMetadata = dVariableMeta,
                 data = dData)
