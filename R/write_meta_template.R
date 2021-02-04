@@ -6,7 +6,7 @@
 #'   metadata written into a seperate file. If the data are embedded, the output
 #'   file name is "file_withMeta.csv". If the data are not embedded, the data
 #'   file is named "file.csv" and the metadate file is named "file_meta.csv".
-#'   Default embedded = FALSE.
+#'   Default embedded = TRUE
 #' @param gen_attributes Vector of general attributes for metadata template.
 #'   Default is gen_format_2 from the internal list of format options. Can be
 #'   any user provided character vector that does not contain any commas.
@@ -23,8 +23,10 @@
 write_meta_template <- function(dData, file, embedded = TRUE,
                        gen_attributes = gen_attrib$gen_format_2,
                        var_attributes = var_attrib$var_format_2){
-  # TODO write function to make internal attribute lists visible to user
-  #create the general metadata data frame with blank values
+  #TODO write function to make internal attribute lists visible to user TODO let
+  #user set gen_attributes and var_attributes from string name of the stock
+  #package attribute list options. create the general metadata data frame with
+  #blank values
   dGenMeta <- data.frame(Attribute = gen_attributes)
   dGenMeta$Value <- ""
   #create the variable metadata data frame with variable names from the source data

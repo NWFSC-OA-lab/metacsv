@@ -21,7 +21,7 @@ write_meta_template(
 metadata written into a seperate file. If the data are embedded, the output
 file name is "file_withMeta.csv". If the data are not embedded, the data
 file is named "file.csv" and the metadate file is named "file_meta.csv".
-Default embedded = FALSE.}
+Default embedded = TRUE}
 
 \item{gen_attributes}{Vector of general attributes for metadata template.
 Default is gen_format_2 from the internal list of format options. Can be
