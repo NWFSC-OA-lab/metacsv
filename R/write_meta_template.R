@@ -21,12 +21,9 @@
 #' write_meta_template(iris, "~/iris")
 #' write_meta_template(iris, "~/iris", embedded = FALSE)
 write_meta_template <- function(dData, file, embedded = TRUE,
-                       gen_attributes = gen_attrib$gen_format_2,
-                       var_attributes = var_attrib$var_format_2){
-  #TODO write function to make internal attribute lists visible to user TODO let
-  #user set gen_attributes and var_attributes from string name of the stock
-  #package attribute list options. create the general metadata data frame with
-  #blank values
+                       gen_attributes = gen_attrib$attribute_name,
+                       var_attributes = var_attrib$attribute_name){
+  # TODO suppress write append warnings
   dGenMeta <- data.frame(Attribute = gen_attributes)
   dGenMeta$Value <- ""
   #create the variable metadata data frame with variable names from the source data
@@ -46,10 +43,10 @@ write_meta_template <- function(dData, file, embedded = TRUE,
     utils::write.table(dGenMeta, file, row.names = FALSE, col.names = FALSE, sep = ",", append = TRUE)
     utils::write.table(data.frame("***"), file, row.names = FALSE,
                 col.names = FALSE,sep = ",", append = TRUE)
-    utils::write.table(dVarMeta, file, row.names = FALSE, sep = ",", append = TRUE)
+    suppressWarnings(utils::write.table(dVarMeta, file, row.names = FALSE, sep = ",", append = TRUE))
     utils::write.table(data.frame("###"), file, row.names = FALSE,
                 col.names = FALSE,sep = ",", append = TRUE)
-    utils::write.table(dData, file, row.names = FALSE, sep = ",", append = TRUE)
+    suppressWarnings(utils::write.table(dData, file, row.names = FALSE, sep = ",", append = TRUE))
   } else{
     #write and external metafile template
     metaFileName <- paste(file, "_meta.csv", sep = "")
@@ -59,7 +56,7 @@ write_meta_template <- function(dData, file, embedded = TRUE,
                 sep = ",", append = TRUE)
     utils::write.table(data.frame("***"), metaFileName, row.names = FALSE,
                 col.names = FALSE,sep = ",", append = TRUE)
-    utils::write.table(dVarMeta, metaFileName, row.names = FALSE, sep = ",", append = TRUE)
+    suppressWarnings(utils::write.table(dVarMeta, metaFileName, row.names = FALSE, sep = ",", append = TRUE))
     utils::write.table(data.frame("###"), metaFileName, row.names = FALSE,
                 col.names = FALSE,sep = ",", append = TRUE)
     #write the data in a seperate .csv file

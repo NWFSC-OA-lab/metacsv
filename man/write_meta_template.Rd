@@ -8,8 +8,8 @@ write_meta_template(
   dData,
   file,
   embedded = TRUE,
-  gen_attributes = gen_attrib$gen_format_2,
-  var_attributes = var_attrib$var_format_2
+  gen_attributes = gen_attrib$attribute_name,
+  var_attributes = var_attrib$attribute_name
 )
 }
 \arguments{
