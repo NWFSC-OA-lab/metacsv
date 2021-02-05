@@ -1,6 +1,25 @@
 #' Read csv file with metadata
 #'
-#' @param file path and name of the .csv data file to read
+#'  The function will read four types of csv files.
+#'    \describe{
+#'     \item{Embedded metadata}{The input file is in the format produced by
+#'     write_meta_template(...,embedded = TRUE), which has metadata embedded
+#'     at the top of the file above the data table. File names are typically in the
+#'     format "fileName_withMeta.csv"}
+#'     \item{Data file with external metadata}{Metadata is stored in an external
+#'     metadata file located in the same folder as the data file. The function call
+#'     is to the data file (e.g. read_meta("dataFile.csv")). The function then will
+#'     read in any metadata located in a file in same folder named "dataFile_meta.csv".}
+#'     \item{Data file without external metadata}{If there is no "dataFile_meta.csv"
+#'     file associated with the data file located in the folder, the function will
+#'     read in the data table only and issue a warning that there are no metadata.}
+#'     \item{Metadata only}{If the call is to a "dataFile_meta.csv" metadata file, the
+#'     function will read in the metadata and issue a warning that there is no
+#'     data table included in the file. Note that "dataFile.csv" may in fact exist,
+#'     but the function will not bother to look for it.}
+#'    }
+#'
+#' @param file Path and name of the .csv data file to read.
 #'
 #' @return List with three data frames
 #'    \describe{
@@ -37,19 +56,23 @@ read_meta <- function(file){
     attributeNames <- attributeNames[!is.na(attributeNames)]
     dVariableMeta <- dVariableMeta[2:length(dVariableMeta[,1]), 1:length(attributeNames)]
     names(dVariableMeta) <- attributeNames
-    #Read in the meta data file first find the length of the header in case the
-    #dataset has fewer columns than the number of variable attribute tables
-    dDataHeaderRow <- utils::read.csv(file, stringsAsFactors=FALSE,
-                               header = FALSE, nrows = 1,
-                               skip = genBreakRow + varBreakRow)
-    header <- dDataHeaderRow[1,]
-    header <- header[!is.na(header)]
-    dData <- utils::read.csv(file, stringsAsFactors=FALSE,
-                      header = TRUE, skip = genBreakRow + varBreakRow )
-    dData <- dData[,1:length(header)]
-    #need to add some code here to remove columns in dData if
-    # variable name starts with "x" and all values in the column are NA
-    # this situation happens if the number of variables in the data set are < length(attributeNames)
+    #check if the file conatins only metadata. If so, write warning, if not read
+    #in the data.
+    if(length(readLines(file(file))) == genBreakRow + varBreakRow){
+      warning("This file contains metadata, but does not include a data table.")
+      dData <- NULL
+    } else {
+      #Read in the meta data file first find the length of the header in case the
+      #dataset has fewer columns than the number of variable attribute tables
+      dDataHeaderRow <- utils::read.csv(file, stringsAsFactors=FALSE,
+                                 header = FALSE, nrows = 1,
+                                 skip = genBreakRow + varBreakRow)
+      header <- dDataHeaderRow[1,]
+      header <- header[!is.na(header)]
+      dData <- utils::read.csv(file, stringsAsFactors=FALSE,
+                        header = TRUE, skip = genBreakRow + varBreakRow )
+      dData <- dData[,1:length(header)]
+    }
   } else{
     #name of potential seperate metadata file
     metaFileName <- stringr::word(file, sep = ".csv")
