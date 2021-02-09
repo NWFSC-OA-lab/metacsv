@@ -36,31 +36,39 @@ write_meta_template <- function(dData, file, embedded = TRUE,
   if(embedded){
     #add .csv extension
     file <- paste(file, "_withMeta.csv", sep = "")
-    # write the output file appending the general metadata, variable metadata, actual data
-    # and format makers in the appropriate order
-    utils::write.table(data.frame("*metacsv_format_file*"), file, row.names = FALSE,
-                col.names = FALSE,sep = ",")
-    utils::write.table(dGenMeta, file, row.names = FALSE, col.names = FALSE, sep = ",", append = TRUE)
-    utils::write.table(data.frame("***"), file, row.names = FALSE,
-                col.names = FALSE,sep = ",", append = TRUE)
-    suppressWarnings(utils::write.table(dVarMeta, file, row.names = FALSE, sep = ",", append = TRUE))
-    utils::write.table(data.frame("###"), file, row.names = FALSE,
-                col.names = FALSE,sep = ",", append = TRUE)
-    suppressWarnings(utils::write.table(dData, file, row.names = FALSE, sep = ",", append = TRUE))
+    if(file.exists(file)){
+      warning(paste("The file", file, "already exists. Cannot overwrite."))
+    }else {
+      # write the output file appending the general metadata, variable metadata, actual data
+      # and format makers in the appropriate order
+      utils::write.table(data.frame("*metacsv_format_file*"), file, row.names = FALSE,
+                         col.names = FALSE,sep = ",")
+      utils::write.table(dGenMeta, file, row.names = FALSE, col.names = FALSE, sep = ",", append = TRUE)
+      utils::write.table(data.frame("***"), file, row.names = FALSE,
+                         col.names = FALSE,sep = ",", append = TRUE)
+      suppressWarnings(utils::write.table(dVarMeta, file, row.names = FALSE, sep = ",", append = TRUE))
+      utils::write.table(data.frame("###"), file, row.names = FALSE,
+                         col.names = FALSE,sep = ",", append = TRUE)
+      suppressWarnings(utils::write.table(dData, file, row.names = FALSE, sep = ",", append = TRUE))
+    }
   } else{
     #write and external metafile template
     metaFileName <- paste(file, "_meta.csv", sep = "")
-    utils::write.table(data.frame("*metacsv_format_file*"), metaFileName, row.names = FALSE,
-                col.names = FALSE,sep = ",")
-    utils::write.table(dGenMeta, metaFileName, row.names = FALSE, col.names = FALSE,
-                sep = ",", append = TRUE)
-    utils::write.table(data.frame("***"), metaFileName, row.names = FALSE,
-                col.names = FALSE,sep = ",", append = TRUE)
-    suppressWarnings(utils::write.table(dVarMeta, metaFileName, row.names = FALSE, sep = ",", append = TRUE))
-    utils::write.table(data.frame("###"), metaFileName, row.names = FALSE,
-                col.names = FALSE,sep = ",", append = TRUE)
-    #write the data in a seperate .csv file
-    file <- paste(file, ".csv", sep = "")
-    utils::write.csv(dData, file, row.names = FALSE)
+    if(file.exists(metaFileName)){
+      warning(paste("The file", metaFileName, "already exists. Cannot overwrite."))
+    }else {
+      utils::write.table(data.frame("*metacsv_format_file*"), metaFileName, row.names = FALSE,
+                  col.names = FALSE,sep = ",")
+      utils::write.table(dGenMeta, metaFileName, row.names = FALSE, col.names = FALSE,
+                  sep = ",", append = TRUE)
+      utils::write.table(data.frame("***"), metaFileName, row.names = FALSE,
+                  col.names = FALSE,sep = ",", append = TRUE)
+      suppressWarnings(utils::write.table(dVarMeta, metaFileName, row.names = FALSE, sep = ",", append = TRUE))
+      utils::write.table(data.frame("###"), metaFileName, row.names = FALSE,
+                  col.names = FALSE,sep = ",", append = TRUE)
+      #write the data in a seperate .csv file
+      file <- paste(file, ".csv", sep = "")
+      utils::write.csv(dData, file, row.names = FALSE)
+    }
   }
 }
