@@ -69,8 +69,7 @@ read_meta <- function(file){
                                  skip = genBreakRow + varBreakRow)
       header <- dDataHeaderRow[1,]
       header <- header[!is.na(header)]
-      dData <- utils::read.csv(file, stringsAsFactors=FALSE,
-                        header = TRUE, skip = genBreakRow + varBreakRow )
+      dData <- readr::read_csv(file, skip = genBreakRow + varBreakRow )
       dData <- dData[,1:length(header)]
     }
   } else{
@@ -87,12 +86,12 @@ read_meta <- function(file){
       dVariableMeta <- utils::read.csv(metaFileName, stringsAsFactors=FALSE,
                                 header = TRUE, skip = genBreakRow)
       dVariableMeta <- dVariableMeta[1:nrow(dVariableMeta)-1,]
-      dData <- utils::read.csv(file, stringsAsFactors=FALSE, header = TRUE)
+      dData <- readr::read_csv(file)
     }
     else{
       dGeneralMeta <- NULL
       dVariableMeta <- NULL
-      dData <- utils::read.csv(file, stringsAsFactors=FALSE, header = TRUE)
+      dData <- readr::read_csv(file)
       warning("There are no embedded or external metadata associated with this file.")
     }
   }
