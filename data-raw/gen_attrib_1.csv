@@ -12,12 +12,17 @@ version_number,Current version number for this file
 version_history,Brief narrative of file edit history
 editor_name_history,Name of each person to edit the dataset with names seperated by comma. The last name on the list should be the last person to edit the file.
 data_collection_start_date,Earliest date of collection for data in the data set.
-data_collection_end_date,Last data of collection for data in the data set.
+data_collection_end_date,Last date of collection for data in the data set.
 data_collection_location,Collection location(s) for data in the dataset
+species,List of species associated with the dataset
+life_stage,Life stages associated with the dataset
 data_entered_by,Person(s) who entered the source data from hard copy
 data_contributor,Person(s) who were involved in generating or recording the data
-data_owner,Principle Investigator and/or institution.
+data_owner,Principle Investigator
+institution,The home institution that generated and/or owns the data
 data_point_of_contact,Person(s) to contract with questions about the the data
+data_POC_email,Email addeess of the data point of contact
 archive_link,Location on google drive or githup where data are archived.
 how_to_cite,Directions on how to cite the dataset.
 acknowledgements,Acknowledgements that need to be included in any use of the data.
+related_datasets,Any datasets associated with this dataset (e.g. datasets that are part of the same study). 
